@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "py-pkg-updater"
-version = "0.1.3"
+version = "0.1.4"
 description = "A small CLI tool to check and upgrade outdated pip packages."
 readme = "README.md"
 requires-python = ">=3.9"
@@ -20,5 +20,5 @@ dependencies = [
 update-packages = "update_python_packages.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/yourusername/update-python-packages"
-Repository = "https://github.com/yourusername/update-python-packages"
+Homepage = "https://github.com/AlonePyWarrior/packages_updator"
+Repository = "https://github.com/AlonePyWarrior/packages_updator"
