@@ -25,11 +25,11 @@ It is designed for developers who want a faster, cleaner workflow than repeatedl
 
 ### Outdated packages table
 
-![Outdated packages table](./docs/assets/outdated-packages-table.png)
+![Outdated packages table](.././docs/assets/outdated-packages-table.png)
 
 ### Upgrade progress
 
-![Upgrade progress](./docs/assets/upgrade-progress.png)
+![Upgrade progress](.././docs/assets/upgrade-progress.png)
 
 ---
 
