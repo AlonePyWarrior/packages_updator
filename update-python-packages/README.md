@@ -185,7 +185,7 @@ python -m twine upload dist/*
 ```text
 py-pkg-updater/
 ├── src/
-│   └── py_pkg_updater/
+│   └── update_python_packages/
 │       ├── __init__.py
 │       └── cli.py
 ├── pyproject.toml
