@@ -1,4 +1,3 @@
-```markdown
 # Auto Update Python Packages
 
 A simple interactive Python script to find and upgrade outdated packages in your current virtual environment.
@@ -142,15 +141,3 @@ __pycache__/
 - dry-run mode
 - skip/include package patterns
 - rollback guidance
-
----
-
-## License
-
-Choose a license such as MIT if you plan to publish publicly.
-```
-
-If you want, I can also give you:
-- a short repo description/tagline for GitHub
-- a clean `requirements.txt`
-- a suggested first release checklist (`v1.0.0`)
