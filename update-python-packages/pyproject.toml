@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "py-pkg-updater"
+version = "0.1.2"
+description = "A small CLI tool to check and upgrade outdated pip packages."
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+  { name = "Ali Esmaeilzadeh" }
+]
+license = "MIT"
+dependencies = [
+  "rich>=13.0.0"
+]
+
+[project.scripts]
+update-packages = "update_python_packages.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/yourusername/update-python-packages"
+Repository = "https://github.com/yourusername/update-python-packages"

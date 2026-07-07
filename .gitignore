@@ -1,0 +1,5 @@
+.pypirc
+dist/
+*.egg-info/
+.venv/
+update_this_pypi_pkg.md
