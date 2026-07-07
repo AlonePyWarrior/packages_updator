@@ -1,143 +1,221 @@
-# Auto Update Python Packages
+# py-pkg-updater
 
-A simple interactive Python script to find and upgrade outdated packages in your current virtual environment.
+A simple command-line tool for checking and upgrading outdated Python packages in your current environment.
 
-This tool:
-
-- lists outdated packages using `pip list --outdated --format=json`
-- lets you choose what to upgrade (`all`, `none`, or selected packages)
-- upgrades selected packages one by one using `pip install --upgrade`
-- uses a rich terminal UI when [`rich`](https://pypi.org/project/rich/) is installed
-- automatically falls back to plain text mode when `rich` is not installed
+`py-pkg-updater` helps you quickly inspect outdated `pip` packages, review the current and latest versions, and upgrade selected packages directly from the terminal.
 
 ---
 
 ## Features
 
-- ✅ Interactive package selection
-- ✅ Upgrade all or specific packages by **index** or **name**
-- ✅ Optional rich table/progress UI
-- ✅ Works without third-party dependencies (Rich is optional)
-- ✅ Runs upgrades with the same Python interpreter (`sys.executable`)
-
----
-
-## Requirements
-
-- Python **3.9+** (recommended)
-- `pip` available in the selected environment
-- Optional: `rich` for enhanced UI
+- Detect outdated packages using `pip list --outdated`
+- Display outdated packages in a clean terminal table
+- Upgrade all packages or selected packages only
+- Supports both package names and numeric selection
+- Uses Rich for a better terminal interface when available
+- Falls back to plain terminal output if Rich is not installed
 
 ---
 
 ## Installation
 
-### 1) Clone or copy the script
-
-Save the script as:
+Install from PyPI:
 
 ```bash
-update_python_packages.py
-```
-
-### 2) Create and activate a virtual environment (recommended)
-
-If you use `uv`:
-
-```cmd
-uv venv
-.venv\Scripts\activate
-```
-
-### 3) (Optional) Install Rich for better UI
-
-```cmd
-uv pip install rich
-```
-
-If you don't install Rich, the script still works in plain text mode.
+pip install py-pkg-updater
+````
 
 ---
 
 ## Usage
 
-Run the script from an activated environment:
-
-```cmd
-python update_python_packages.py
-```
-
-You will see outdated packages, then a prompt:
-
-- `a` or `all` → upgrade all outdated packages
-- `n` or Enter → skip upgrades
-- `1,3,5` → upgrade specific entries by index
-- `requests,urllib3` → upgrade by package names
-- mixed input works too (e.g. `1,requests,4`)
-
----
-
-## Example Flow
-
-1. Script fetches outdated packages.
-2. Displays a table/list with current and latest versions.
-3. Asks which packages to upgrade.
-4. Runs:
+Run the command inside the Python environment you want to update:
 
 ```bash
-python -m pip install --upgrade <package>
+update-packages
 ```
 
-for each selected package.
+The tool will show outdated packages and ask what you want to upgrade.
 
----
+Example options:
 
-## Behavior Notes
-
-- Uses the **current interpreter** (`sys.executable`) to ensure upgrades happen in the active environment.
-- If `pip list` fails, the script exits and prints the error.
-- Unknown package/index input is skipped with a warning.
-- In Rich mode, a progress bar and status icons are displayed.
-
----
-
-## Minimal Dependencies
-
-Strict required third-party dependencies: **none**
-
-Optional dependency:
-
-```txt
-rich
+```text
+A        upgrade all packages
+N        skip upgrading
+1,3,5    upgrade selected packages by number
+rich,pip upgrade selected packages by name
 ```
 
 ---
 
-## Security / Operational Considerations
+## Example
 
-- Upgrading packages may introduce breaking changes.
-- Prefer reviewing critical upgrades before applying to production environments.
-- Consider pinning versions in `requirements.txt` / lockfiles after successful upgrades.
-- Run this in a virtual environment to avoid changing global Python packages.
+```bash
+update-packages
+```
 
----
+Example output:
 
-## Suggested `.gitignore` (for this repo)
+```text
+Outdated packages
 
-If this is a standalone repo, add:
+#   Package      Current    Latest
+1   pip          24.0       25.1.1
+2   rich         13.7.0     13.9.4
 
-```gitignore
-.venv/
-__pycache__/
-*.pyc
+Choose packages to upgrade:
+A  upgrade all
+N  skip upgrading
+1,3,5  comma-separated indices or package names
 ```
 
 ---
 
-## Roadmap Ideas (Optional)
+## Recommended Use
 
-- `--yes` non-interactive mode
-- export before/after versions
-- dry-run mode
-- skip/include package patterns
-- rollback guidance
+Use this tool inside an activated virtual environment:
+
+### Windows PowerShell
+
+```powershell
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+pip install py-pkg-updater
+update-packages
+```
+
+### macOS / Linux
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install py-pkg-updater
+update-packages
+```
+
+---
+
+## Why Use a Virtual Environment?
+
+This tool upgrades packages in the Python environment where it is executed.
+
+For safer package management, run it inside a project-specific virtual environment instead of your global Python installation.
+
+---
+
+## Requirements
+
+* Python 3.9 or newer
+* pip
+* rich
+
+---
+
+## Development
+
+Clone the repository:
+
+```bash
+git clone https://github.com/YOUR_USERNAME/py-pkg-updater.git
+cd py-pkg-updater
+```
+
+Create and activate a virtual environment:
+
+```bash
+python -m venv venv
+```
+
+Windows:
+
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+macOS / Linux:
+
+```bash
+source venv/bin/activate
+```
+
+Install in editable mode:
+
+```bash
+pip install -e .
+```
+
+Run locally:
+
+```bash
+update-packages
+```
+
+---
+
+## Build
+
+Install build tools:
+
+```bash
+pip install --upgrade build twine
+```
+
+Build the package:
+
+```bash
+python -m build
+```
+
+This creates distribution files inside the `dist/` directory.
+
+---
+
+## Publish
+
+Upload to PyPI:
+
+```bash
+python -m twine upload dist/*
+```
+
+---
+
+## Project Structure
+
+```text
+py-pkg-updater/
+├── src/
+│   └── update_python_packages/
+│       ├── __init__.py
+│       └── cli.py
+├── pyproject.toml
+├── README.md
+├── LICENSE
+└── dist/
+```
+
+---
+
+## Security Note
+
+Be careful when upgrading many packages at once. Package updates can introduce breaking changes, especially in active projects.
+
+Recommended workflow:
+
+1. Activate your virtual environment.
+2. Run `update-packages`.
+3. Upgrade selected packages.
+4. Test your project.
+5. Commit dependency changes if everything works.
+
+---
+
+## License
+
+This project is licensed under the MIT License.
+
+---
+
+## Author
+
+Created by Ali Esmaeilzadeh.
